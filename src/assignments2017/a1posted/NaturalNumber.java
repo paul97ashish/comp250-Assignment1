@@ -255,11 +255,13 @@ public class NaturalNumber {
             product = (firstClone.timesSingleDigit(secondClone.coefficients.get(x)));
             
             int shift = x;
-            while (shift >= 1){
-            	product.coefficients.addLast(0);
-            	shift--;
+            while (x > 0){
+            	product.coefficients.addFirst(0);
             }
+            
             prodFinal = prodFinal.plus(product);
+            
+            
             
 
 
