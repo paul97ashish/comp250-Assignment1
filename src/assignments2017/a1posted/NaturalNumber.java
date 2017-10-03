@@ -233,6 +233,7 @@ public class NaturalNumber {
     /*
      * The multiply method computes this.multiply(b) where 'this' is a.
      */
+     // -------------- BEGIN SOLUTION (multiply) ------------------
 
     public NaturalNumber times(NaturalNumber multiplicand) throws Exception {
 
@@ -252,53 +253,54 @@ public class NaturalNumber {
        
 
         for (int x = 0; x < firstClone.coefficients.size(); x++) {
-            product = (firstClone.timesSingleDigit(secondClone.coefficients.get(x)));
+            prodFinal = (firstClone.timesSingleDigit(secondClone.coefficients.get(x)));
             
             int shift = x;
-            while (x > 0){
-            	product.coefficients.addFirst(0);
+            while (shift >= 1){
+            	prodFinal.coefficients.addFirst(0);
+            	shift--;
             }
             
-            prodFinal = prodFinal.plus(product);
-            
-            
-            
-
-
-            
-        }
-               
-
-        // -------------- BEGIN SOLUTION (multiply) ------------------
-        
-
-        /*
-         * multiplicand x multiplier (this) ---------------
-         * 
-         * Note we use a helper method. See below.
-         */
+            product = product.plus(prodFinal);
+               	
+            } 
+            //removes zeros
+            while(product.coefficients.getLast() == 0){
+            	product.coefficients.removeLast();
+       }
 
         // --------------- END SOLUTION (multiply) -------------------
 
-        return prodFinal;
+        return product;
     }
 
     // -------- BEGIN SOLUTION *helper method* for multiply -----
     
     public NaturalNumber  timesSingleDigit( int  singleDigit){
+    	
     	NaturalNumber firstClone=this;
     	NaturalNumber result1 = new NaturalNumber(this.base);
+    	
+    	int carry = 0;
     	for (int y=0; y < firstClone.coefficients.size(); y++ ){
-    		int carry = 0;
-    				
-    		int result = firstClone.coefficients.get(y) * singleDigit + carry;
     		
-    		if (result > this.base){
-    			carry = result / this.base;
-    			result = result % this.base;
+    				
+    		int result = (firstClone.coefficients.get(y) * singleDigit) + carry;
+    		
+    		if (result >= base){
+    			carry = result / base;
+    			result = result % base;
+    		}
+    		else if (result < base){
+    			carry = 0;
+    			
     		}
     		
     		result1.coefficients.addLast(result);
+    		if (firstClone.coefficients.size() - 1 == y){
+    			result1.coefficients.addLast(carry);
+
+    		}
     	}
     	return result1;
     	

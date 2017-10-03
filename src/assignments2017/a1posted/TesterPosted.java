@@ -14,8 +14,8 @@ public class TesterPosted {
 		//String s2 = "22320000423456100034345344000042";
 
 		int base = 10 ;
-		String s1 = "124";
-		String s2 = "55";
+		String s1 = "42345614234561000343453440000343453440";
+		String s2 = "22320000423456100034345344000042";
 		
 		BigInteger big1 = new BigInteger(s1,base);
 		BigInteger big2 = new BigInteger(s2,base);
@@ -69,7 +69,7 @@ public class TesterPosted {
 		System.out.println();
 		
 		System.out.print("slow divide: n1/n2    = ");               // NaturalNumber
-	//	System.out.println(n1.slowDivide(n2));
+		System.out.println(n1.slowDivide(n2));
 
 		/*   mod
 		
