@@ -14,7 +14,7 @@ public class TesterPosted {
 		//String s2 = "22320000423456100034345344000042";
 
 		int base = 8 ;
-		String s1 = "77600";
+		String s1 = "77675";
 		String s2 = "77375";
 		
 		BigInteger big1 = new BigInteger(s1,base);
@@ -43,7 +43,7 @@ public class TesterPosted {
 		System.out.print("diff: big1-big2 =       (");
 		System.out.println(big1.subtract(big2).toString(base)  + ")_" + base );  // BigInteger
 		System.out.print("diff: n1-n2     =       ");
-		//System.out.println(n1.minus(n2));                         // NaturalNumber
+		System.out.println(n1.minus(n2));                         // NaturalNumber
 
 		//  The BigInteger class uses a 'multiply' method for addition. NaturalNumber 
 		//  uses 'times' instead.  
@@ -58,7 +58,7 @@ public class TesterPosted {
 		System.out.println();
 		
 		System.out.print("slow multiply: n1*n2  = ");               // NaturalNumber
-		System.out.println(n1.slowTimes(n2));
+		//System.out.println(n1.slowTimes(n2));
 		System.out.println();
 				
 		System.out.print("divide: big1/big2     = (");              // BigInteger  

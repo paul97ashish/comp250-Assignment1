@@ -215,8 +215,7 @@ public class NaturalNumber {
 
         NaturalNumber prod = new NaturalNumber(0, this.base);
         NaturalNumber one = new NaturalNumber(1, this.base);
-        for (NaturalNumber counter = new NaturalNumber(0, this.base); counter
-                .compareTo(multiplier) < 0; counter = counter.plus(one)) {
+        for (NaturalNumber counter = new NaturalNumber(0, this.base); counter.compareTo(multiplier) < 0; counter = counter.plus(one)) {
             prod = prod.plus(this);
         }
         return prod;
@@ -251,10 +250,11 @@ public class NaturalNumber {
         NaturalNumber secondClone = multiplicand.clone();
         int carry = 0;
         int answer;
+      
         int base1 = this.base;
 
         for (int x = 0; x < firstClone.coefficients.size(); x++) {
-            int addition = firstClone.coefficients.get(x) + secondClone.coefficients.get(x) + carry;
+            int addition = firstClone.coefficients.get(x) * secondClone.coefficients.get(x) + carry;
 
             if (addition >= base1) {
                 carry = addition / base1;
@@ -328,7 +328,21 @@ public class NaturalNumber {
         // ADD YOUR CODE HERE
 
         // --------- BEGIN SOLUTION (minus) ----------
+        int carry = 0;
+        int answer;
+        int base1 = this.base;
+        
 
+        for (int x = 0; x < first.coefficients.size(); x++) {
+        	
+        	
+            int subtraction = (first.coefficients.get(x) + carry) - second.coefficients.get(x) ;
+
+            difference.coefficients.addLast(subtraction);
+        }
+        
+        
+        
         // --------- END SOLUTION (minus) ----------
 
         /*
