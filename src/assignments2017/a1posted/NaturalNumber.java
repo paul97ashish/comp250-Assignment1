@@ -248,32 +248,27 @@ public class NaturalNumber {
         // ADD YOUR CODE HERE
         NaturalNumber firstClone = this.clone();
         NaturalNumber secondClone = multiplicand.clone();
-        int carry = 0;
-        int answer;
-      
-        int base1 = this.base;
+        NaturalNumber prodFinal = new NaturalNumber(this.base);
+       
 
         for (int x = 0; x < firstClone.coefficients.size(); x++) {
-            int addition = firstClone.coefficients.get(x) * secondClone.coefficients.get(x) + carry;
-
-            if (addition >= base1) {
-                carry = addition / base1;
-                answer = addition % base1;
-            } else {
-                answer = addition;
-                carry = 0;
+            product = (firstClone.timesSingleDigit(secondClone.coefficients.get(x)));
+            
+            int shift = x;
+            while (shift >= 1){
+            	product.coefficients.addLast(0);
+            	shift--;
             }
+            prodFinal = prodFinal.plus(product);
+            
 
-            product.coefficients.addLast(answer);
+
+            
         }
-        
-        int lastCoef = firstClone.coefficients.getLast() + secondClone.coefficients.getLast();
-        if (lastCoef >= this.base){
-            carry = lastCoef/this.base;
-            product.coefficients.addLast(carry);
-        }
+               
 
         // -------------- BEGIN SOLUTION (multiply) ------------------
+        
 
         /*
          * multiplicand x multiplier (this) ---------------
@@ -283,10 +278,29 @@ public class NaturalNumber {
 
         // --------------- END SOLUTION (multiply) -------------------
 
-        return product;
+        return prodFinal;
     }
 
     // -------- BEGIN SOLUTION *helper method* for multiply -----
+    
+    public NaturalNumber  timesSingleDigit( int  singleDigit){
+    	NaturalNumber firstClone=this;
+    	NaturalNumber result1 = new NaturalNumber(this.base);
+    	for (int y=0; y < firstClone.coefficients.size(); y++ ){
+    		int carry = 0;
+    				
+    		int result = firstClone.coefficients.get(y) * singleDigit + carry;
+    		
+    		if (result > this.base){
+    			carry = result / this.base;
+    			result = result % this.base;
+    		}
+    		
+    		result1.coefficients.addLast(result);
+    	}
+    	return result1;
+    	
+    }
 
     /*
      * 'this' (the caller) will be the multiplicand.
@@ -328,18 +342,35 @@ public class NaturalNumber {
         // ADD YOUR CODE HERE
 
         // --------- BEGIN SOLUTION (minus) ----------
-        int carry = 0;
-        int answer;
+        int diff = first.coefficients.size() - second.coefficients.size();
+        while (diff < 0) { // second is bigger
+
+            first.coefficients.addLast(0);
+            diff++;
+        }
+        while (diff > 0) { // this is bigger
+            second.coefficients.addLast(0);
+            diff--;
+        }
+        
         int base1 = this.base;
         
+        int carry = 0;
+		for (int i = 0; i < first.coefficients.size(); i++){
 
-        for (int x = 0; x < first.coefficients.size(); x++) {
-        	
-        	
-            int subtraction = (first.coefficients.get(x) + carry) - second.coefficients.get(x) ;
-
-            difference.coefficients.addLast(subtraction);
-        }
+		  if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) < 0){
+		    difference.coefficients.addLast((first.coefficients.get(i) + base1 - carry) - second.coefficients.get(i));
+		    carry = 1;
+		  }
+		  if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) > 0){
+		    difference.coefficients.addLast(first.coefficients.get(i) - carry - second.coefficients.get(i));
+		    carry = 0;
+		  }
+		  if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) == 0){
+		    difference.coefficients.addLast(0);
+		    carry = 0;
+		  }
+		}
         
         
         

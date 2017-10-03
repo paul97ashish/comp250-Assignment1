@@ -13,9 +13,9 @@ public class TesterPosted {
 		//String s1 = "42345614234561000343453440000343453440";
 		//String s2 = "22320000423456100034345344000042";
 
-		int base = 8 ;
-		String s1 = "77675";
-		String s2 = "77375";
+		int base = 10 ;
+		String s1 = "93048485";
+		String s2 = "10000";
 		
 		BigInteger big1 = new BigInteger(s1,base);
 		BigInteger big2 = new BigInteger(s2,base);
