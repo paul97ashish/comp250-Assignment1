@@ -1,7 +1,7 @@
 package assignments2017.a1posted;
 
 /*
- *   STUDENT NAME      :  Ashish Paul 
+ *   STUDENT NAME      :  Ashish Paul
  *   STUDENT ID        :  260706034
  *   
  *   If you have any issues that you wish the T.A.s to consider, then you
@@ -15,6 +15,7 @@ package assignments2017.a1posted;
  */
 
 import java.util.LinkedList;
+
 
 public class NaturalNumber {
 
@@ -184,10 +185,10 @@ public class NaturalNumber {
 
             sum.coefficients.addLast(answer);
         }
-
+        
         int lastCoef = firstClone.coefficients.getLast() + second.coefficients.getLast();
-        if (lastCoef >= this.base) {
-            carry = lastCoef / this.base;
+        if (lastCoef >= this.base){
+            carry = lastCoef/this.base;
             sum.coefficients.addLast(carry);
         }
         //
@@ -214,8 +215,7 @@ public class NaturalNumber {
 
         NaturalNumber prod = new NaturalNumber(0, this.base);
         NaturalNumber one = new NaturalNumber(1, this.base);
-        for (NaturalNumber counter = new NaturalNumber(0, this.base); counter
-                .compareTo(multiplier) < 0; counter = counter.plus(one)) {
+        for (NaturalNumber counter = new NaturalNumber(0, this.base); counter.compareTo(multiplier) < 0; counter = counter.plus(one)) {
             prod = prod.plus(this);
         }
         return prod;
@@ -233,7 +233,7 @@ public class NaturalNumber {
     /*
      * The multiply method computes this.multiply(b) where 'this' is a.
      */
-    // -------------- BEGIN SOLUTION (multiply) ------------------
+     // -------------- BEGIN SOLUTION (multiply) ------------------
 
     public NaturalNumber times(NaturalNumber multiplicand) throws Exception {
 
@@ -250,23 +250,24 @@ public class NaturalNumber {
         NaturalNumber firstClone = this.clone();
         NaturalNumber secondClone = multiplicand.clone();
         NaturalNumber prodFinal = new NaturalNumber(this.base);
+       
 
         for (int x = 0; x < firstClone.coefficients.size(); x++) {
             prodFinal = (firstClone.timesSingleDigit(secondClone.coefficients.get(x)));
-
+            
             int shift = x;
-            while (shift >= 1) {
-                prodFinal.coefficients.addFirst(0);
-                shift--;
+            while (shift >= 1){
+            	prodFinal.coefficients.addFirst(0);
+            	shift--;
             }
-
+            
             product = product.plus(prodFinal);
-
-        }
-        // removes zeros
-        while (product.coefficients.getLast() == 0) {
-            product.coefficients.removeLast();
-        }
+               	
+            } 
+            //removes zeros
+            while(product.coefficients.getLast() == 0){
+            	product.coefficients.removeLast();
+       }
 
         // --------------- END SOLUTION (multiply) -------------------
 
@@ -274,33 +275,35 @@ public class NaturalNumber {
     }
 
     // -------- BEGIN SOLUTION *helper method* for multiply -----
+    
+    public NaturalNumber  timesSingleDigit( int  singleDigit){
+    	
+    	NaturalNumber firstClone=this;
+    	NaturalNumber result1 = new NaturalNumber(this.base);
+    	
+    	int carry = 0;
+    	for (int y=0; y < firstClone.coefficients.size(); y++ ){
+    		
+    				
+    		int result = (firstClone.coefficients.get(y) * singleDigit) + carry;
+    		
+    		if (result >= base){
+    			carry = result / base;
+    			result = result % base;
+    		}
+    		else if (result < base){
+    			carry = 0;
+    			
+    		}
+    		
+    		result1.coefficients.addLast(result);
+    		if (firstClone.coefficients.size() - 1 == y){
+    			result1.coefficients.addLast(carry);
 
-    public NaturalNumber timesSingleDigit(int singleDigit) {
-
-        NaturalNumber first = this;
-        NaturalNumber result1 = new NaturalNumber(this.base);
-
-        int carry = 0;
-        for (int y = 0; y < first.coefficients.size(); y++) {
-
-            int result = (first.coefficients.get(y) * singleDigit) + carry;
-
-            if (result >= base) {
-                carry = result / base;
-                result = result % base;
-            } else if (result < base) {
-                carry = 0;
-
-            }
-
-            result1.coefficients.addLast(result);
-            if (first.coefficients.size() - 1 == y) {
-                result1.coefficients.addLast(carry);
-
-            }
-        }
-        return result1;
-
+    		}
+    	}
+    	return result1;
+    	
     }
 
     /*
@@ -353,27 +356,28 @@ public class NaturalNumber {
             second.coefficients.addLast(0);
             diff--;
         }
-
+        
         int base1 = this.base;
-
+        
         int carry = 0;
-        for (int i = 0; i < first.coefficients.size(); i++) {
+		for (int i = 0; i < first.coefficients.size(); i++){
 
-            if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) < 0) {
-                difference.coefficients
-                        .addLast((first.coefficients.get(i) + base1 - carry) - second.coefficients.get(i));
-                carry = 1;
-            }
-            if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) > 0) {
-                difference.coefficients.addLast(first.coefficients.get(i) - carry - second.coefficients.get(i));
-                carry = 0;
-            }
-            if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) == 0) {
-                difference.coefficients.addLast(0);
-                carry = 0;
-            }
-        }
-
+		  if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) < 0){
+		    difference.coefficients.addLast((first.coefficients.get(i) + base1 - carry) - second.coefficients.get(i));
+		    carry = 1;
+		  }
+		  if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) > 0){
+		    difference.coefficients.addLast(first.coefficients.get(i) - carry - second.coefficients.get(i));
+		    carry = 0;
+		  }
+		  if ((first.coefficients.get(i) - carry) - second.coefficients.get(i) == 0){
+		    difference.coefficients.addLast(0);
+		    carry = 0;
+		  }
+		}
+        
+        
+        
         // --------- END SOLUTION (minus) ----------
 
         /*
@@ -430,64 +434,11 @@ public class NaturalNumber {
             throw new Exception();
         }
 
-        // NaturalNumber remainder = this.clone();
+        NaturalNumber remainder = this.clone();
 
         // ADD YOUR CODE HERE.
 
         // --------------- BEGIN SOLUTION (divide) --------------------------
-        int quot;
-        NaturalNumber divi = new NaturalNumber(this.base);
-        while (divisor.coefficients.getLast() == 0) {
-            divisor.coefficients.removeLast();
-        }
-
-        for (int i = this.coefficients.size() - 1; i >= -1; i--) {
-
-            if (divi.coefficients.size() > 1) {
-                // removes zeros
-                while (divi.coefficients.getLast() == 0) {
-                    divi.coefficients.removeLast();
-                    if (divi.coefficients.size() == 1) {
-                        break;
-                    }
-
-                }
-            }
-            if (divisor.compareTo(divi) > 0) {
-                divi.coefficients.addFirst(this.coefficients.get(i));
-                quotient.coefficients.push(0);
-            } else if (i > -1) {
-                quot = 0;
-                while (divi.compareTo(divisor) >= 0) {
-                    divi = divi.minus(divisor);
-                    quot++;
-                    // removes zeros
-                    while (divisor.coefficients.getLast() == 0) {
-                        divisor.coefficients.removeLast();
-                    }
-
-                }
-                quotient.coefficients.push(quot);
-                divi.coefficients.push(this.coefficients.get(i));
-            } else {
-                quot = 0;
-                while (divi.compareTo(divisor) >= 0) {
-                    divi = divi.minus(divisor);
-                    quot++;
-                    // removes zeros
-                    while (divisor.coefficients.getLast() == 0) {
-                        divisor.coefficients.removeLast();
-                    }
-                }
-
-                quotient.coefficients.push(quot);
-            }
-        }
-
-        // Remove all 0s
-        while ((quotient.coefficients.size() > 1) && (quotient.coefficients.getLast().intValue() == 0)) {
-            quotient.coefficients.removeLast();
-        }
 
         // ------------- END SOLUTION (divide) ---------------------
 
